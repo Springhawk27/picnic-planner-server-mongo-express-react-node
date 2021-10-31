@@ -107,7 +107,7 @@ async function run() {
         });
 
         // DELETE API
-        app.delete('/picnicSpots/:id', async (req, res) => {
+        app.delete('/bookings/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await picnicSpotCollection.deleteOne(query);
