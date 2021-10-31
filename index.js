@@ -74,16 +74,14 @@ async function run() {
 
         app.put('/bookings/:id', async (req, res) => {
             const id = req.params.id;
-            const updatedUser = req.body;
             const filter = { _id: ObjectId(id) }
             const options = { upsert: true }
             const updateDoc = {
                 $set: {
-                    name: updatedUser.name,
-                    email: updatedUser.email
-                }
+                    status: "Approved"
+                },
             };
-            const result = await usersCollection.updateOne(filter, updateDoc, options)
+            const result = await bookingSpotCollection.updateOne(filter, updateDoc, options)
             // console.log('updating user', id);
             // console.log('updating user req', req);
             // res.send('updating not dating');
