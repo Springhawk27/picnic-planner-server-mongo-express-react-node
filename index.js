@@ -1,5 +1,5 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const { MongoClient, OrderedBulkOperation } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
 const cors = require('cors')
 require('dotenv').config()
@@ -27,6 +27,8 @@ async function run() {
         const database = client.db('picnicPlanner');
         // collection or simply a table
         const picnicSpotCollection = database.collection('picnicSpots');
+        const guideCollection = database.collection('guides');
+        const bookingSpotCollection = database.collection('bookings');
 
 
         // GET API -  all services
@@ -36,6 +38,21 @@ async function run() {
             res.send(picnicSpots);
         });
 
+        // GET API -  all bookings
+        app.get('/bookings', async (req, res) => {
+            const cursor = bookingSpotCollection.find({});
+            const bookings = await cursor.toArray();
+            res.send(bookings);
+        });
+        // GET API -  guides
+        app.get('/guides', async (req, res) => {
+            const cursor = guideCollection.find({});
+            const guides = await cursor.toArray();
+            res.send(guides);
+        });
+
+
+
         // GET API - single service
         app.get('/picnicSpots/:id', async (req, res) => {
             const id = req.params.id;
@@ -43,6 +60,14 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const picnicSpot = await picnicSpotCollection.findOne(query);
             res.json(picnicSpot)
+        })
+
+        // add bookings api
+        app.post('/bookings', async (req, res) => {
+            const booking = req.body;
+            // console.log('my bookings', bookings);
+            const result = await bookingSpotCollection.insertOne(booking);
+            res.send(result);
         })
 
 
