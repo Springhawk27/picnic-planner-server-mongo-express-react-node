@@ -30,20 +30,20 @@ async function run() {
 
 
         // GET API -  all services
-        // app.get('/services', async (req, res) => {
-        //     const cursor = servicesCollection.find({});
-        //     const services = await cursor.toArray();
-        //     res.send(services);
-        // });
+        app.get('/picnicSpots', async (req, res) => {
+            const cursor = picnicSpotCollection.find({});
+            const picnicSpots = await cursor.toArray();
+            res.send(picnicSpots);
+        });
 
         // GET API - single service
-        // app.get('/services/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     // console.log('getting a specific id', id)
-        //     const query = { _id: ObjectId(id) };
-        //     const service = await servicesCollection.findOne(query);
-        //     res.json(service)
-        // })
+        app.get('/picnicSpots/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log('getting a specific id', id)
+            const query = { _id: ObjectId(id) };
+            const picnicSpot = await picnicSpotCollection.findOne(query);
+            res.json(picnicSpot)
+        })
 
 
 
@@ -75,13 +75,13 @@ async function run() {
         });
 
         // DELETE API
-        // app.delete('/services/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const query = { _id: ObjectId(id) };
-        //     const result = await servicesCollection.deleteOne(query);
-        //     res.json(result);
+        app.delete('/picnicSpots/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await picnicSpotCollection.deleteOne(query);
+            res.json(result);
 
-        // })
+        })
     }
     finally {
         // await client.close();
