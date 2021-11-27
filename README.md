@@ -8,6 +8,12 @@ live link: https://picnic-planner-30d64.web.app/
 
 ## This Project consists of:
 
+-	A responsive MERN stack website where one can book for a picnic spot
+-	User can manage picnic spot where spot can be added and deleted. User also can manage bookings where bookings can be deleted and approved
+-	Implemented  with REST API and mongodb to handle data
+-	Firebase authentication added for registration, sign in and google sign in. Firebase and Heroku  used for client server side deployment consecutively 
+
+
 ### server side consist of:
 
 - Mongodb as a database
